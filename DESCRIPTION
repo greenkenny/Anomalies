@@ -1,10 +1,14 @@
 Package: Anomalies
+Type: Package
 Title: This package uses for detecting anomalies in time series
-Version: 0.0.0.9000
-Authors@R: person("Alexander", "Mishustin", email = "sasha1078@inbox.ru", role = creator)
+Version: 1.0
+Author: Alexander Mishustin
 Description: Detecting anomalies in time series.
+ByteCompile: yes
+Imports: ggplot2, stringr, lubridate
 Depends: R (>= 3.4.3)
+Suggests: testthat
 License: GNU
 Encoding: UTF-8
 LazyData: true
-Suggests: testthat
+Packaged: 2018-03-06 18:26:07 UTC; greenkenny
