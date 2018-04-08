@@ -1,0 +1,69 @@
+---
+title: "Anomalies"
+author: "GreenKenny"
+date: '23 марта 2018 г '
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+ƒанный документ служит примером того, как нужно использовать пакет Anomalies. ƒл€ начала в систему нужно загрузить данные в формате "врем€-значение". ѕример загрузки ниже.
+
+```{r AnomaliesAll, echo=FALSE}
+library(readr)
+library(Anomalies)
+
+data <- read_delim("C:/111.csv", ";", escape_double = FALSE, col_types = cols(`\t` = col_skip(), date = col_datetime(format = "%d-%m-%Y %H:%M:%S"), value = col_number()), locale = locale(date_names = "ru", decimal_mark = ","), trim_ws = TRUE)
+
+res = AnomaliesAll(data, max_anoms=0.49, direction="pos", plot=TRUE)
+
+res$plot
+```
+
+ѕараметр max_anoms служит дл€ определени€ максимального количества аномалий, которое должно отображатьс€ на конечном результате. “.е. если оно меньше того числа, которое присутствует в данных, то будут показаны максимально критичные. ѕримеры варьировани€ этого значени€ ниже.
+
+```{r AnomaliesAll2, echo=FALSE}
+res = AnomaliesAll(data, max_anoms=0.05, direction="pos", plot=TRUE)
+
+res$plot
+```
+
+Ќа графике выше отображен вариант с 5% аномалий. Ќиже дл€ еще одного примера показан с 2%.
+
+```{r AnomaliesAll3, echo=FALSE}
+res = AnomaliesAll(data, max_anoms=0.02, direction="pos", plot=TRUE)
+
+res$plot
+```
+
+ѕараметр direction указывает в каком направлении приоритетно искать аномалии, примеры:
+
+```{r AnomaliesAll4, echo=FALSE}
+res = AnomaliesAll(data, max_anoms=0.2, direction="pos", plot=TRUE)
+
+res$plot
+```
+
+```{r AnomaliesAll5, echo=FALSE}
+res = AnomaliesAll(data, max_anoms=0.2, direction="neg", plot=TRUE)
+
+res$plot
+```
+
+```{r AnomaliesAll6, echo=FALSE}
+res = AnomaliesAll(data, max_anoms=0.2, direction="both", plot=TRUE)
+
+res$plot
+```
+
+“ак же можно подписать график и оси с помощью параметров xlabel, ylabel и title. ѕример ниже.
+
+```{r AnomaliesAll7, echo=FALSE}
+res = AnomaliesAll(data, max_anoms=0.2, direction="both", plot=TRUE, xlabel="time", ylabel="energy", title="anoms")
+
+res$plot
+```
